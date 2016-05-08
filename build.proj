@@ -1,0 +1,66 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup>
+        <CargoLock Include="Cargo.lock"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <CargoToml Include="Cargo.toml"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <RustSrc Include="src\**\*.rs"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Debug'">
+        <BuildDependsOn Include="BuildDefault;BuildDebug"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Release'">
+        <BuildDependsOn Include="BuildDefault;BuildRelease"/>
+    </ItemGroup>
+
+    <ItemGroup Condition="'$(Configuration)' == 'Test'">
+        <BuildDependsOn Include="BuildDefault;"/>
+    </ItemGroup>
+
+    <Target Name="Clean">
+        <Exec Command="cargo clean"/>
+    </Target>
+
+    <Target DependsOnTargets="@(BuildDependsOn);"
+            Name="Build"/>
+
+    <Target Inputs="@(CargoLock);@(CargoToml);@(RustSrc);"
+            Name="BuildDebug"
+            Outputs="target\debug\libgraphy_error.rlib">
+        <Exec Command="cargo build"/>
+    </Target>
+
+    <Target Name="BuildDefault">
+        <MSBuild Projects="@(BuildProj)" Targets="Build"/>
+    </Target>
+
+    <Target Inputs="@(CargoLock);@(CargoToml);@(RustSrc);"
+            Name="BuildRelease"
+            Outputs="target\release\libgraphy_error.rlib">
+        <Exec Command="cargo build --release"/>
+    </Target>
+
+    <Target DependsOnTargets="Update;Build"
+            Name="FullBuild"/>
+
+    <Target Inputs="@(CargoLock);@(CargoToml);@(RustSrc);"
+            Name="Package"
+            Outputs="target\package">
+        <Exec Command="cargo package"/>
+    </Target>
+
+    <Target Condition="'$(Configuration)' == 'Test'" DependsOnTargets="Build" Name="Test">
+        <Exec Command="cargo test"/>
+    </Target>
+
+    <Target Name="Update">
+        <MSBuild Projects="@(BuildProj)" Targets="Update"/>
+        <Exec Command="cargo update"/>
+    </Target>
+</Project>
