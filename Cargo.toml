@@ -1,0 +1,6 @@
+[package]
+name = "graphy_error"
+version = "0.1.0"
+authors = ["Tyler Wolf Leonhardt <tyler.wolf.leonhardt@gmail.com>"]
+
+[dependencies]
