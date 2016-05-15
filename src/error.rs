@@ -1,13 +1,20 @@
 #[macro_export]
 macro_rules! error {
     (
-        $main_error_ident: ident {
-            $($current_error_ident: ident),*
+        $(#[$main_attribute: meta])*
+        mainerror $main_error_ident: ident {
+            $(
+                $(#[$current_attribute: meta])*
+                suberror $current_error_ident: ident
+            ),*
         }
     ) => {
-        #[derive(Debug)]
+        $(#[$main_attribute])*
         pub enum $main_error_ident {
-            $($current_error_ident($current_error_ident)),*
+            $(
+                $(#[$current_attribute])*
+                $current_error_ident($current_error_ident)
+            ),*
         }
 
         impl Display for $main_error_ident {
