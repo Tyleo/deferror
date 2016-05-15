@@ -1,5 +1,5 @@
 #[macro_export]
-macro_rules! register_errors {
+macro_rules! error {
     (
         $main_error_ident: ident {
             $($current_error_ident: ident),+
