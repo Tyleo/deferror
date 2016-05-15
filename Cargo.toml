@@ -13,6 +13,6 @@ exclude = [
     "build.proj"
 ]
 license = "MIT"
-name = "deferror"
-repository = "https://github.com/Tyleo/deferror"
+name = "define_error"
+repository = "https://github.com/Tyleo/define_error"
 version = "1.0.0"
