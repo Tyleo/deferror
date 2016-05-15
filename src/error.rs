@@ -1,5 +1,5 @@
 #[macro_export]
-macro_rules! error {
+macro_rules! define_error {
     (
         $(#[$main_attribute: meta])*
         pub error $main_error_ident: ident {
