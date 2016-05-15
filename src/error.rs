@@ -2,7 +2,7 @@
 macro_rules! error {
     (
         $(#[$main_attribute: meta])*
-        mainerror $main_error_ident: ident {
+        pub mainerror $main_error_ident: ident {
             $(
                 $(#[$current_attribute: meta])*
                 suberror $current_error_ident: ident
