@@ -15,4 +15,4 @@ exclude = [
 license = "MIT"
 name = "define_error"
 repository = "https://github.com/Tyleo/define_error"
-version = "1.2.0"
+version = "1.3.0"
