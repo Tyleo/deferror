@@ -1,2 +1,2 @@
 #[macro_use]
-pub mod error;
+pub mod define_error;
